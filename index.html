@@ -159,44 +159,55 @@ canvas { display:block; width:100vw; height:100vh; }
   <div id="switch-btn" style="position:absolute;bottom:140px;right:210px;width:55px;height:55px;border-radius:50%;background:rgba(255,204,0,0.18);border:2px solid #ffcc00;color:#ffcc00;font-size:10px;display:flex;align-items:center;justify-content:center;pointer-events:all;user-select:none;">SWAP</div>
 </div>
 
-<!-- Multiplayer Panel -->
-<div id="mp-panel" style="position:fixed;inset:0;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:300;font-family:'Courier New',monospace;">
-  <div style="color:#ff3300;font-size:36px;font-weight:900;letter-spacing:8px;margin-bottom:8px;">MULTIPLAYER</div>
-  <div style="color:#555;font-size:11px;letter-spacing:4px;margin-bottom:30px;">PEER-TO-PEER · NO SERVER NEEDED</div>
-  <div id="mp-step1" style="text-align:center;">
-    <div style="color:#aaa;font-size:11px;letter-spacing:3px;margin-bottom:14px;">STEP 1: CHOOSE ROLE</div>
-    <button class="map-btn" id="mp-host-btn">HOST GAME</button>
-    <button class="map-btn" id="mp-join-btn">JOIN GAME</button>
-    <button class="map-btn" style="border-color:#333;color:#333;margin-top:10px;" id="mp-back-btn">← BACK</button>
-  </div>
-  <div id="mp-step2" style="display:none;text-align:center;max-width:500px;">
-    <div id="mp-instructions" style="color:#aaa;font-size:11px;letter-spacing:2px;margin-bottom:14px;line-height:2;"></div>
-    <textarea id="mp-code-in" style="width:420px;height:80px;background:#111;border:1px solid #ff3300;color:#fff;font-family:'Courier New',monospace;font-size:10px;padding:8px;resize:none;" placeholder="Paste code here..."></textarea>
-    <br>
-    <button class="map-btn" id="mp-action-btn" style="margin-top:10px;">SUBMIT</button>
-    <div id="mp-code-out-wrap" style="margin-top:16px;display:none;">
-      <div style="color:#aaa;font-size:10px;letter-spacing:2px;margin-bottom:6px;">YOUR CODE (copy & send to partner):</div>
-      <textarea id="mp-code-out" style="width:420px;height:80px;background:#111;border:1px solid #00ff88;color:#00ff88;font-family:'Courier New',monospace;font-size:10px;padding:8px;resize:none;" readonly></textarea>
-      <br><button class="map-btn" id="mp-copy-btn" style="margin-top:8px;width:200px;">COPY CODE</button>
-    </div>
-    <div id="mp-status" style="color:#ffcc00;font-size:12px;letter-spacing:3px;margin-top:14px;"></div>
-    <button class="map-btn" id="mp-back2-btn" style="border-color:#333;color:#333;margin-top:10px;">← BACK</button>
-  </div>
+<!-- USERNAME SCREEN (shows first) -->
+<div id="username-screen" style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:500;font-family:'Courier New',monospace;">
+  <div style="font-size:72px;font-weight:900;color:#ff2200;letter-spacing:12px;text-shadow:0 0 60px #ff2200;animation:tp 2s infinite;margin-bottom:8px;">DEAD ZONE</div>
+  <div style="color:#444;font-size:13px;letter-spacing:8px;margin-bottom:50px;">SURVIVE OR DIE</div>
+  <div style="color:#aaa;font-size:11px;letter-spacing:4px;margin-bottom:12px;">ENTER YOUR NAME</div>
+  <input id="username-input" maxlength="16" placeholder="PLAYER NAME"
+    style="background:transparent;border:none;border-bottom:2px solid #ff3300;color:#fff;font-family:'Courier New',monospace;font-size:28px;font-weight:900;letter-spacing:6px;text-align:center;width:320px;padding:8px;outline:none;text-transform:uppercase;"
+    autocomplete="off" spellcheck="false"/>
+  <button id="username-btn" class="map-btn" style="margin-top:28px;width:220px;">ENTER GAME →</button>
+  <div style="color:#333;font-size:10px;letter-spacing:2px;margin-top:20px;">UP TO 16 CHARACTERS</div>
 </div>
 
-<!-- Peer player indicator -->
-<div id="peer-hud" style="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);border:1px solid #00ff88;color:#00ff88;padding:4px 14px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;display:none;z-index:15;">👥 PARTNER CONNECTED</div>
-
-<div id="start-screen">
+<!-- MAIN MENU -->
+<div id="start-screen" style="display:none;">
   <div id="s-title">DEAD ZONE</div>
-  <div id="s-sub">SURVIVE OR DIE</div>
-  <div id="s-map">— SELECT MAP —</div>
-  <button class="map-btn" id="btn-map1">MAP 01 · ABANDONED SCHOOL</button>
-  <button class="map-btn locked">MAP 02 · UNDERGROUND BUNKER</button>
-  <button class="map-btn locked">MAP 03 · ROOFTOP CITY</button>
-  <button class="map-btn" id="btn-mp" style="border-color:#00ff88;color:#00ff88;margin-top:10px;">👥 MULTIPLAYER (BETA)</button>
-  <div id="s-controls">WASD — MOVE &nbsp;·&nbsp; MOUSE — AIM &nbsp;·&nbsp; CLICK — SHOOT<br>R — RELOAD &nbsp;·&nbsp; F — INTERACT &nbsp;·&nbsp; G — GRENADE<br>MOBILE: LEFT JOYSTICK + DRAG RIGHT SIDE TO LOOK</div>
+  <div id="s-username-tag" style="color:#ffcc00;font-size:12px;letter-spacing:4px;margin-top:4px;"></div>
+  <div id="s-map" style="margin-top:30px;">— SELECT MODE —</div>
+  <button class="map-btn" id="btn-map1">▶ SOLO · MAP 01</button>
+  <button class="map-btn locked">MAP 02 · BUNKER (SOON)</button>
+  <button class="map-btn locked">MAP 03 · ROOFTOP (SOON)</button>
+  <button class="map-btn" id="btn-mp-host" style="border-color:#00ff88;color:#00ff88;margin-top:8px;">👥 HOST GAME</button>
+  <button class="map-btn" id="btn-mp-join" style="border-color:#00aaff;color:#00aaff;">🔗 JOIN GAME</button>
+  <div id="s-controls">WASD — MOVE &nbsp;·&nbsp; MOUSE — AIM &nbsp;·&nbsp; CLICK — SHOOT<br>R — RELOAD &nbsp;·&nbsp; F — INTERACT &nbsp;·&nbsp; G — GRENADE &nbsp;·&nbsp; Q — SWAP GUN</div>
 </div>
+
+<!-- HOST WAITING SCREEN -->
+<div id="host-screen" style="position:fixed;inset:0;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:300;font-family:'Courier New',monospace;">
+  <div style="color:#00ff88;font-size:14px;letter-spacing:5px;margin-bottom:16px;">YOUR ROOM CODE</div>
+  <div id="host-code-display" style="font-size:96px;font-weight:900;color:#fff;letter-spacing:24px;text-shadow:0 0 40px #00ff88;margin-bottom:8px;">------</div>
+  <div style="color:#555;font-size:11px;letter-spacing:3px;margin-bottom:40px;">SHARE THIS CODE WITH YOUR FRIEND</div>
+  <div id="host-status" style="color:#ffcc00;font-size:13px;letter-spacing:4px;margin-bottom:30px;">⏳ WAITING FOR PLAYER...</div>
+  <button id="host-copy-btn" class="map-btn" style="width:220px;margin-bottom:8px;">COPY CODE</button>
+  <button id="host-cancel-btn" class="map-btn" style="border-color:#333;color:#444;width:220px;">CANCEL</button>
+</div>
+
+<!-- JOIN SCREEN -->
+<div id="join-screen" style="position:fixed;inset:0;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:300;font-family:'Courier New',monospace;">
+  <div style="color:#00aaff;font-size:14px;letter-spacing:5px;margin-bottom:16px;">ENTER ROOM CODE</div>
+  <input id="join-code-input" maxlength="6" placeholder="XXXXXX"
+    style="background:transparent;border:none;border-bottom:3px solid #00aaff;color:#fff;font-family:'Courier New',monospace;font-size:72px;font-weight:900;letter-spacing:18px;text-align:center;width:420px;padding:8px 0;outline:none;text-transform:uppercase;"
+    autocomplete="off" spellcheck="false"/>
+  <div style="color:#555;font-size:11px;letter-spacing:3px;margin-top:12px;margin-bottom:32px;">6-LETTER CODE FROM HOST</div>
+  <button id="join-btn" class="map-btn" style="width:220px;border-color:#00aaff;color:#00aaff;margin-bottom:8px;">JOIN GAME</button>
+  <div id="join-status" style="color:#ffcc00;font-size:12px;letter-spacing:3px;margin-bottom:20px;min-height:20px;"></div>
+  <button id="join-cancel-btn" class="map-btn" style="border-color:#333;color:#444;width:220px;">CANCEL</button>
+</div>
+
+<!-- In-game partner HUD -->
+<div id="peer-hud" style="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);border:1px solid #00ff88;color:#00ff88;padding:4px 14px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;display:none;z-index:15;">👥 <span id="peer-name-tag">PARTNER</span> CONNECTED</div>
 
 <div id="game-over">
   <div id="go-title">YOU DIED</div>
@@ -209,6 +220,7 @@ canvas { display:block; width:100vw; height:100vh; }
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <script>
 'use strict';
 // Detect mobile: touch device OR narrow screen (not a desktop browser)
@@ -1181,136 +1193,199 @@ function loop(){
   renderer.render(scene,camera);
 }
 
-// ── MULTIPLAYER (WebRTC peer-to-peer) ──
-let peer=null, dataChannel=null, isHost=false, mpConnected=false;
-let peerMesh=null; // visual representation of partner
+// ── USERNAME ──
+let USERNAME = 'PLAYER';
 
-function createPeerMesh(){
-  if(peerMesh) scene.remove(peerMesh);
-  const g=new THREE.Group();
-  const body=new THREE.Mesh(new THREE.BoxGeometry(.55,1.2,.38),new THREE.MeshLambertMaterial({color:0x004488}));
-  const head=new THREE.Mesh(new THREE.BoxGeometry(.45,.45,.44),new THREE.MeshLambertMaterial({color:0x0066cc}));
-  head.position.y=.85; g.add(body); g.add(head);
-  g.position.set(2,0.9,-10);
-  scene.add(g); peerMesh=g;
+document.getElementById('username-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') confirmUsername();
+});
+document.getElementById('username-btn').addEventListener('click', confirmUsername);
+
+function confirmUsername() {
+  const val = document.getElementById('username-input').value.trim().toUpperCase() || 'PLAYER';
+  USERNAME = val.slice(0, 16);
+  document.getElementById('username-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'flex';
+  document.getElementById('s-username-tag').textContent = '👤 ' + USERNAME;
 }
 
-function mpSend(data){
-  if(dataChannel&&dataChannel.readyState==='open') dataChannel.send(JSON.stringify(data));
+// ── MULTIPLAYER (PeerJS) ──
+let peer = null, conn = null, mpConnected = false, peerMesh = null;
+
+// Generate random 6-letter uppercase code
+function genCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no ambiguous chars
+  let c = '';
+  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
+  return c;
 }
 
-function setupDataChannel(dc){
-  dataChannel=dc;
-  dc.onopen=()=>{
-    mpConnected=true;
-    document.getElementById('peer-hud').style.display='block';
-    createPeerMesh();
-    console.log('MP connected!');
-  };
-  dc.onclose=()=>{ mpConnected=false; document.getElementById('peer-hud').style.display='none'; };
-  dc.onmessage=e=>{
-    try{
-      const d=JSON.parse(e.data);
-      if(d.type==='pos'&&peerMesh){
-        peerMesh.position.set(d.x,0.9,d.z);
-        peerMesh.rotation.y=d.yaw;
-      }
-    }catch(err){}
-  };
+function createPeerMesh(name) {
+  if (peerMesh) scene.remove(peerMesh);
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(.55, 1.2, .38), new THREE.MeshLambertMaterial({ color: 0x004488 }));
+  const head = new THREE.Mesh(new THREE.BoxGeometry(.45, .45, .44), new THREE.MeshLambertMaterial({ color: 0x0066cc }));
+  head.position.y = .85;
+  g.add(body); g.add(head);
+  g.position.set(2, 0.9, -10);
+  scene.add(g);
+  peerMesh = g;
+  document.getElementById('peer-name-tag').textContent = name || 'PARTNER';
+  document.getElementById('peer-hud').style.display = 'block';
 }
 
-async function hostGame(){
-  peer=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
-  isHost=true;
-  const dc=peer.createDataChannel('game');
-  setupDataChannel(dc);
-  const mpOut=document.getElementById('mp-code-out');
-  const mpOutWrap=document.getElementById('mp-code-out-wrap');
-  const mpStatus=document.getElementById('mp-status');
+function mpSend(data) {
+  if (conn && conn.open) conn.send(data);
+}
 
-  peer.onicecandidate=async e=>{
-    if(!e.candidate){
-      // Offer complete
-      mpOutWrap.style.display='block';
-      mpOut.value=btoa(JSON.stringify(peer.localDescription));
-      mpStatus.textContent='SEND CODE TO PARTNER. WAIT FOR THEIR ANSWER.';
+function onMpConnected(connection, partnerName) {
+  conn = connection;
+  mpConnected = true;
+  createPeerMesh(partnerName);
+
+  conn.on('data', d => {
+    if (d.type === 'pos' && peerMesh) {
+      peerMesh.position.set(d.x, 0.9, d.z);
+      peerMesh.rotation.y = d.yaw;
     }
-  };
-
-  const offer=await peer.createOffer();
-  await peer.setLocalDescription(offer);
-
-  // Now wait for answer
-  document.getElementById('mp-action-btn').textContent='SUBMIT ANSWER';
-  document.getElementById('mp-action-btn').onclick=async()=>{
-    try{
-      const answer=JSON.parse(atob(document.getElementById('mp-code-in').value.trim()));
-      await peer.setRemoteDescription(answer);
-      mpStatus.textContent='CONNECTING...';
-    }catch(err){ mpStatus.textContent='INVALID CODE. TRY AGAIN.'; }
-  };
-}
-
-async function joinGame(){
-  peer=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
-  isHost=false;
-  peer.ondatachannel=e=>setupDataChannel(e.channel);
-  const mpOut=document.getElementById('mp-code-out');
-  const mpOutWrap=document.getElementById('mp-code-out-wrap');
-  const mpStatus=document.getElementById('mp-status');
-
-  peer.onicecandidate=async e=>{
-    if(!e.candidate){
-      mpOutWrap.style.display='block';
-      mpOut.value=btoa(JSON.stringify(peer.localDescription));
-      mpStatus.textContent='SEND THIS ANSWER CODE BACK TO HOST.';
+    if (d.type === 'hello') {
+      document.getElementById('peer-name-tag').textContent = d.name || 'PARTNER';
     }
-  };
+  });
 
-  document.getElementById('mp-action-btn').textContent='SUBMIT OFFER';
-  document.getElementById('mp-action-btn').onclick=async()=>{
-    try{
-      const offer=JSON.parse(atob(document.getElementById('mp-code-in').value.trim()));
-      await peer.setRemoteDescription(offer);
-      const answer=await peer.createAnswer();
-      await peer.setLocalDescription(answer);
-      mpStatus.textContent='GENERATING ANSWER CODE...';
-    }catch(err){ mpStatus.textContent='INVALID CODE. TRY AGAIN.'; }
-  };
+  conn.on('close', () => {
+    mpConnected = false;
+    document.getElementById('peer-hud').style.display = 'none';
+    if (peerMesh) { scene.remove(peerMesh); peerMesh = null; }
+  });
 }
 
-// Multiplayer UI wiring
-document.getElementById('btn-mp').addEventListener('click',()=>{
-  document.getElementById('start-screen').style.display='none';
-  document.getElementById('mp-panel').style.display='flex';
+function cleanupPeer() {
+  if (conn) { conn.close(); conn = null; }
+  if (peer) { peer.destroy(); peer = null; }
+  mpConnected = false;
+}
+
+// HOST
+document.getElementById('btn-mp-host').addEventListener('click', () => {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('host-screen').style.display = 'flex';
+  document.getElementById('host-status').textContent = '⏳ CREATING ROOM...';
+  document.getElementById('host-code-display').textContent = '......';
+
+  const code = genCode();
+  const peerId = 'dz-' + code;
+
+  peer = new Peer(peerId, { debug: 0 });
+
+  peer.on('open', () => {
+    document.getElementById('host-code-display').textContent = code;
+    document.getElementById('host-status').textContent = '⏳ WAITING FOR PLAYER...';
+  });
+
+  peer.on('error', () => {
+    // Code collision — try again with new code
+    document.getElementById('host-status').textContent = '⚠️ CODE TAKEN, GENERATING NEW...';
+    setTimeout(() => {
+      peer.destroy();
+      document.getElementById('btn-mp-host').click();
+    }, 1000);
+  });
+
+  peer.on('connection', c => {
+    document.getElementById('host-status').textContent = '✅ PLAYER JOINING... LOADING GAME';
+    c.on('open', () => {
+      c.send({ type: 'hello', name: USERNAME });
+      onMpConnected(c, c.metadata || 'PARTNER');
+      setTimeout(() => {
+        document.getElementById('host-screen').style.display = 'none';
+        startGame();
+      }, 800);
+    });
+  });
 });
-document.getElementById('mp-back-btn').addEventListener('click',()=>{
-  document.getElementById('mp-panel').style.display='none';
-  document.getElementById('start-screen').style.display='flex';
+
+document.getElementById('host-copy-btn').addEventListener('click', () => {
+  const code = document.getElementById('host-code-display').textContent;
+  navigator.clipboard?.writeText(code);
+  document.getElementById('host-copy-btn').textContent = 'COPIED! ✓';
+  setTimeout(() => document.getElementById('host-copy-btn').textContent = 'COPY CODE', 2000);
 });
-document.getElementById('mp-back2-btn').addEventListener('click',()=>{
-  document.getElementById('mp-step2').style.display='none';
-  document.getElementById('mp-step1').style.display='block';
-  if(peer){ peer.close(); peer=null; }
+
+document.getElementById('host-cancel-btn').addEventListener('click', () => {
+  cleanupPeer();
+  document.getElementById('host-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'flex';
 });
-document.getElementById('mp-copy-btn').addEventListener('click',()=>{
-  navigator.clipboard?.writeText(document.getElementById('mp-code-out').value);
-  document.getElementById('mp-copy-btn').textContent='COPIED!';
-  setTimeout(()=>document.getElementById('mp-copy-btn').textContent='COPY CODE',2000);
+
+// JOIN
+document.getElementById('btn-mp-join').addEventListener('click', () => {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('join-screen').style.display = 'flex';
+  document.getElementById('join-code-input').value = '';
+  document.getElementById('join-status').textContent = '';
+  setTimeout(() => document.getElementById('join-code-input').focus(), 100);
 });
-document.getElementById('mp-host-btn').addEventListener('click',()=>{
-  document.getElementById('mp-step1').style.display='none';
-  document.getElementById('mp-step2').style.display='block';
-  document.getElementById('mp-instructions').textContent='1. Click HOST below to generate your offer code\n2. Copy & send code to your friend\n3. Paste their answer code below\n4. Start the game — both open Map 01';
-  document.getElementById('mp-action-btn').textContent='HOST — GENERATE CODE';
-  document.getElementById('mp-action-btn').onclick=()=>{ hostGame(); document.getElementById('mp-action-btn').textContent='(generating...)'; };
+
+document.getElementById('join-code-input').addEventListener('input', e => {
+  e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
 });
-document.getElementById('mp-join-btn').addEventListener('click',()=>{
-  document.getElementById('mp-step1').style.display='none';
-  document.getElementById('mp-step2').style.display='block';
-  document.getElementById('mp-instructions').textContent='1. Paste the HOST\'s offer code below\n2. Click SUBMIT OFFER\n3. Copy the answer code you receive\n4. Send it back to the host';
-  document.getElementById('mp-action-btn').textContent='SUBMIT OFFER';
-  document.getElementById('mp-action-btn').onclick=()=>joinGame();
+
+document.getElementById('join-code-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('join-btn').click();
+});
+
+document.getElementById('join-btn').addEventListener('click', () => {
+  const code = document.getElementById('join-code-input').value.trim().toUpperCase();
+  if (code.length !== 6) {
+    document.getElementById('join-status').textContent = '⚠️ ENTER A 6-LETTER CODE';
+    return;
+  }
+
+  document.getElementById('join-status').textContent = '🔗 CONNECTING...';
+  document.getElementById('join-btn').disabled = true;
+
+  if (peer) { peer.destroy(); peer = null; }
+  peer = new Peer({ debug: 0 });
+
+  peer.on('open', () => {
+    const c = peer.connect('dz-' + code, { metadata: USERNAME, reliable: true });
+
+    const timeout = setTimeout(() => {
+      document.getElementById('join-status').textContent = '❌ ROOM NOT FOUND. CHECK CODE.';
+      document.getElementById('join-btn').disabled = false;
+      cleanupPeer();
+    }, 8000);
+
+    c.on('open', () => {
+      clearTimeout(timeout);
+      c.send({ type: 'hello', name: USERNAME });
+      onMpConnected(c, 'HOST');
+      document.getElementById('join-status').textContent = '✅ CONNECTED! LOADING...';
+      setTimeout(() => {
+        document.getElementById('join-screen').style.display = 'none';
+        startGame();
+      }, 600);
+    });
+
+    c.on('error', () => {
+      clearTimeout(timeout);
+      document.getElementById('join-status').textContent = '❌ COULD NOT CONNECT. TRY AGAIN.';
+      document.getElementById('join-btn').disabled = false;
+    });
+  });
+
+  peer.on('error', () => {
+    document.getElementById('join-status').textContent = '❌ CONNECTION ERROR. TRY AGAIN.';
+    document.getElementById('join-btn').disabled = false;
+  });
+});
+
+document.getElementById('join-cancel-btn').addEventListener('click', () => {
+  cleanupPeer();
+  document.getElementById('join-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'flex';
+  document.getElementById('join-btn').disabled = false;
 });
 
 // ── BOOT ──
@@ -1322,14 +1397,15 @@ window.addEventListener('resize',()=>{
 
 document.getElementById('btn-map1').addEventListener('click',()=>{
   document.getElementById('start-screen').style.display='none';
-  // Also close MP panel if open
-  document.getElementById('mp-panel').style.display='none';
   startGame();
 });
 document.getElementById('go-restart').addEventListener('click',()=>{
   document.getElementById('game-over').classList.remove('show');
   startGame();
 });
+
+// Focus username input on load
+setTimeout(()=>document.getElementById('username-input').focus(), 100);
 
 loop();
 </script>
